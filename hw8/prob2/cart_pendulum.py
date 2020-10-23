@@ -17,9 +17,9 @@ class CartPend:
     # Linearized Pendulum System
     A = np.array(
     [[0, 1, 0, 0],
-     [0, -b/M, -m*g/M, 0],
+     [0, -b/M, m*g/M, 0],
      [0, 0, 0, 1],
-     [0, b/(M*L), (m+M)*g/(M*L), 0]])
+     [0, -b/(M*L), (m+M)*g/(M*L), 0]])
 
     B = np.reshape([0, 1/M, 0, 1/(M*L)], (4, 1))
 
@@ -45,9 +45,9 @@ class CartPend:
     D = m*L*L*(M+m*sin**2)
 
     f1 = x[1]
-    f2 = (1/D)*(-m**2*L**2*g*sin*cos + m*L*L*(m*L*x[3]**2*sin - b*x[1])) + m*L*L*(1/D)*u
+    f2 = (1/D)*(m**2*L**2*g*sin*cos + m*L*L*(m*L*x[3]**2*sin - b*x[1])) + m*L*L*(1/D)*u
     f3 = x[3]
-    f4 = (1/D)*((m+M)*m*g*L*sin - m*L*cos*(m*L*x[3]**2*sin - b*x[1])) + m*L*cos*(1/D)*u + 0.01 * np.random.normal(0,1)
+    f4 = (1/D)*((m+M)*m*g*L*sin - m*L*cos*(m*L*x[3]**2*sin + b*x[1])) + m*L*cos*(1/D)*u + 0.01 * np.random.normal(0,1)
     return f1,f2,f3,f4
 
   @staticmethod
